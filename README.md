@@ -275,14 +275,31 @@ PRD ──/spec-design──▶ 아키텍처 설계(Clean Architecture+모노레
                      ─▶ /pr-report → /pr-3axis-review (spec ↔ 코드 정합 점검)
 ```
 
-### PR 자동화 — Decision Audit
+### PR 자동화 — `/pr-report` 전체 흐름
 
-`/pr-report`는 커밋 → PR 생성 과정에서 3단계 자동 감사를 수행한다:
+`/pr-report` 하나로 커밋부터 회고까지 전 과정이 자동으로 이어진다:
 
-1. **보안 점검**: 하드코딩 자격증명, `os.getenv()` 기본값 인프라 노출, `.gitignore` 누락 탐지
-2. **Decision Audit**: 이 PR에 포함된 결정을 나열하고, 위키 갱신 필요 여부를 Q1(다른 작업자
-   영향)·Q2(위키 커버 여부)로 판정. "갱신 불요" 한 줄로 넘기는 것을 금지.
-3. **사후 영향 평가**: 업/다운스트림 의존성, DB 스키마, API 인터페이스 변경 영향 보고
+```
+/pr-report
+    ↓
+Step 1~2: 보안 점검 + Decision Audit
+    ↓
+Step 3~7: 커밋 → push → PR 생성
+    ↓
+Step 8: 세션 회고 자동 실행 (/session-retro)
+    ↓
+Step 9: "교차 검증 실행할까요?" 자동 제안
+         코드 변경 → 실행 권장
+         문서만 변경 → 건너뛰기 기본
+```
+
+| 단계 | 동작 | 자동/수동 |
+|------|------|----------|
+| 보안 점검 | 하드코딩 자격증명, `os.getenv()` 인프라 노출, `.gitignore` 누락 | 자동 |
+| Decision Audit | 결정 나열 → Q1(타인 영향)·Q2(위키 커버) 판정 | 자동 |
+| 사후 영향 평가 | 업/다운스트림, DB 스키마, API 변경 영향 | 자동 |
+| 세션 회고 | 계획 vs 실제, Keep/Drop/Try 패턴 분석 | **자동** (PR 생성 직후) |
+| 교차 검증 | Codex 독립 리뷰 (`codex review --base main`) | **자동 제안** (사용자 선택) |
 
 ---
 
