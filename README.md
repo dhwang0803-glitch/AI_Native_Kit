@@ -8,6 +8,8 @@ Claude Code 작업에 항상 깔던 ① TDD/리뷰 서브에이전트 템플릿,
 `CLAUDE.md` 골격을 패키징해 둔다. `ai-native-kit init` 한 줄이면 현재 프로젝트에
 복사 + 렌더링 + git 훅 설정까지 끝난다.
 
+[Changelog](CHANGELOG.md)
+
 ---
 
 ## 설치

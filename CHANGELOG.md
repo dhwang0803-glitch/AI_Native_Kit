@@ -1,0 +1,52 @@
+# Changelog
+
+이 프로젝트의 주요 변경 사항을 기록한다.
+형식은 [Keep a Changelog](https://keepachangelog.com/ko/1.1.0/)를 따르며,
+버전 관리는 [Semantic Versioning](https://semver.org/lang/ko/)을 따른다.
+
+---
+
+## [Unreleased]
+
+## [0.1.0] - 2026-06-23
+
+### Added
+- **교차 모델 검증 파이프라인** (`/cross-verify`) — Codex를 통한 독립적 교차 검증
+  - 3단계 우선순위: CLI 직접 실행 → MCP 폴백 → 수동 모드
+  - CLI 모드(`codex review --base main`)에서 Codex가 파일 시스템 직접 접근, 컨텍스트 손실 없음
+  - MCP 모드 트러블슈팅 5항목 문서화 (auth.json 우선순위, BOM 인코딩, .env 변수명 등)
+  - 교차 검증 가이드 (`docs/context/cross-verify-guide.md`)
+- **세션 회고** (`/session-retro`) — 계획 vs 실제 비교, Keep/Drop/Try 패턴 분석, 하네스 개선 제안
+- **pre-commit 훅** (`.githooks/pre-commit`) — 보안 점검(하드코딩/`.env*` 누출) + 린트(ruff/eslint), 실패 시 커밋 차단
+- **코드 설계 품질 규칙** — CLAUDE.md에 클래스 기반 설계 필수, SOLID 5원칙, 디자인 패턴 7종, 복잡도 제한 추가
+- **REVIEW 에이전트 9축** — 기존 8축에 "코드 설계 품질" 축 추가 (함수 기반 감지, SRP/OCP/DIP 위반, God Object)
+- **DEVELOPER 에이전트** — 클래스 기반+SOLID 구현 원칙, 금지 패턴 코드 예시, 복잡도 제한 표
+- **REFACTOR 에이전트** — "코드 설계 품질" 카테고리 신설, SOLID 위반별 전환 가이드
+- **SPEC_TEMPLATE** — 클래스 관계 다이어그램 + 디자인 패턴 표 섹션 의무화
+- **`/spec-design`** — 클래스 다이어그램 + 디자인 패턴 명시 필수 단계 추가
+- **doctor** — pre-commit 훅 존재/LF/shebang 점검 항목 추가
+- **자기 편향 방지 규칙** — CLAUDE.md에 자기 평가 금지 + 교차 검증 의무 시점 명시
+
+### Fixed
+- pre-commit `.env` 변형 파일(`.env.local`, `.env.production`) 보안 게이트 누락 — Codex 교차 검증으로 발견
+- pre-commit `ai-native-kit.toml` 린트 설정 무시 문제 (ruff 항상 우선 실행) — Codex 교차 검증으로 발견
+
+## [0.0.1] - 2026-06-22
+
+### Added
+- **초기 패키지 릴리즈** — `pip install ai-native-kit`
+- `ai-native-kit init` — 에셋을 프로젝트에 설치 (프리셋: `clean`/`frontend`)
+- `ai-native-kit doctor` — 설치된 하니스 자가 진단
+- `ai-native-kit doctor --drift` — docs ↔ 코드 drift 감지 (MAP.md, spec, CLAUDE.md 경로)
+- `ai-native-kit list` — 번들 에셋 목록 출력
+- TDD/리뷰 서브에이전트 9종 (ORCHESTRATOR, TEST_WRITER, DEVELOPER, TESTER, REFACTOR, REVIEW, SECURITY_AUDITOR, IMPACT_ASSESSOR, REPORTER)
+- 슬래시 커맨드 5종 (spec-design, pr-report, pr-3axis-review, release-sync, adr)
+- post-checkout 훅 (브랜치 자동 스캐폴딩)
+- 3계층 컨텍스트 엔지니어링 구조 (Schema → Wiki → Source)
+- README 문서화 — 설치, 사용법, 3계층 구조 설명, drift 감지
+
+---
+
+[Unreleased]: https://github.com/dhwang0803-glitch/ai_native_kit/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/dhwang0803-glitch/ai_native_kit/compare/v0.0.1...v0.1.0
+[0.0.1]: https://github.com/dhwang0803-glitch/ai_native_kit/releases/tag/v0.0.1
