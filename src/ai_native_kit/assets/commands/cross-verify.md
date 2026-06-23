@@ -1,6 +1,8 @@
-Claude Code가 생성한 산출물(plan, spec, 코드, PR)을 Codex MCP를 통해 독립적으로 교차 검증한다. 자기 편향(self-bias)을 방지하기 위해 **작성자와 다른 모델이 검증**하는 것이 핵심이다. 인자: 검증 대상 유형 또는 파일 경로. 예: `/cross-verify plan`, `/cross-verify docs/specs/auth.md`, `/cross-verify diff`
+Claude Code가 생성한 산출물(plan, spec, 코드, PR)을 Codex를 통해 독립적으로 교차 검증한다. 자기 편향(self-bias)을 방지하기 위해 **작성자와 다른 모델이 검증**하는 것이 핵심이다. 인자: 검증 대상 유형 또는 파일 경로. 예: `/cross-verify plan`, `/cross-verify docs/specs/auth.md`, `/cross-verify diff`
 
-> **사전 요구사항**: Codex MCP 서버가 `.claude/settings.json`에 설정되어 있어야 한다. 설정 가이드: `docs/context/cross-verify-guide.md`
+> **사전 요구사항**: Codex CLI (`npm install -g @openai/codex`) 설치 권장. CLI 미설치 시 MCP 폴백 사용. 설정 가이드: `docs/context/cross-verify-guide.md`
+
+> **자동 트리거**: `/pr-report` 실행 시 PR 생성 후 교차 검증 여부를 자동으로 묻는다. 코드 변경이 포함된 PR은 실행 권장. 수동으로도 언제든 실행 가능.
 
 ---
 

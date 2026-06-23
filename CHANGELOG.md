@@ -8,6 +8,11 @@
 
 ## [Unreleased]
 
+### Added
+- `/pr-report` 자동 트리거 — PR 생성 후 `/session-retro` 자동 실행 + `/cross-verify` 실행 여부 제안
+  - 세션 회고: PR 생성 직후 자동 (별도 질문 없이)
+  - 교차 검증: 코드 변경 포함 PR은 실행 권장, 문서만 변경 시 건너뛰기 기본
+
 ## [0.1.0] - 2026-06-23
 
 ### Added

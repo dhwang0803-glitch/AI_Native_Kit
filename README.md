@@ -230,10 +230,13 @@ Codex 독립 검증 (CLI 직접 실행 → MCP 폴백 → 수동)
 /session-retro → 하네스 개선
 ```
 
-| 커맨드 | 역할 |
-|--------|------|
-| `/cross-verify [target]` | Claude 산출물을 Codex가 독립 검증. target: `plan`/`spec`/`code`/`diff`/`pr` |
-| `/session-retro` | 세션 회고 — 계획 vs 실제 비교 + 패턴 분석 + 하네스 개선 제안 |
+| 커맨드 | 역할 | 트리거 |
+|--------|------|--------|
+| `/cross-verify [target]` | Claude 산출물을 Codex가 독립 검증 | `/pr-report` 후 자동 제안 (코드 변경 시 권장) |
+| `/session-retro` | 세션 회고 — 계획 vs 실제 비교 + 하네스 개선 | `/pr-report` 후 **자동 실행** |
+
+> `/pr-report`로 PR을 생성하면 세션 회고가 자동 실행되고, 이어서 교차 검증 여부를 묻는다.
+> 수동으로도 언제든 `/cross-verify`, `/session-retro`를 개별 실행할 수 있다.
 
 #### 검증 실행 방식 (3단계 우선순위)
 
